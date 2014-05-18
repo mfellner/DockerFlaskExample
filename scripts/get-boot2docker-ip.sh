@@ -17,11 +17,4 @@ then
   exit -1
 fi
 
-IP=`${BOOT2DOCKER_BIN} ssh 2>/dev/null ip addr show eth1 | grep -o -E '\d+\.\d+\.\d+\.\d+' | head -1 && exit`
-
-if [ "$1" == "curl" ]
-then
-  curl $IP
-else
-  echo $IP
-fi
+echo `${BOOT2DOCKER_BIN} ssh 2>/dev/null ip addr show eth1 | grep -o -E '\d+\.\d+\.\d+\.\d+' | head -1 && exit`

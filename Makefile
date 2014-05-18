@@ -1,6 +1,6 @@
 
 CONTAINER_NAME = flask-app
-PUBLISH_PORT = 80:80
+PUBLISH_PORT = 8000:80
 DOCKER_ERROR := $(shell docker info 2>&1 | grep -i 'cannot connect')
 OS := $(shell uname)
 
@@ -54,9 +54,17 @@ run: build
 
 .PHONY: test
 test:
-		@if [ -a boot2docker ]; \
+		@if [ -a boot2docker ] && [[ -n `./boot2docker status | grep -o running` ]]; \
 		then \
-			./scripts/get-boot2docker-ip.sh curl; \
+			echo `./scripts/get-boot2docker-ip.sh`:8000 | xargs curl; \
+		elif [ -d .vagrant ] && [[ -n `vagrant status 2>/dev/null | grep -o 'running (docker)'` ]]; \
+		then \
+			curl localhost:8000; \
 		else \
 			curl localhost:80; \
 		fi;
+
+
+.PHONY: vagrant
+vagrant:
+		@vagrant up --provider=docker
