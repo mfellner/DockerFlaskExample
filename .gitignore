@@ -1,0 +1,4 @@
+boot2docker
+boot2docker-cli/
+.vagrant/
+.container-id
