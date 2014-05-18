@@ -6,7 +6,7 @@ ROOT_DIR=`pwd`
 SRC_DIR=src/github.com/boot2docker/boot2docker-cli/
 export GOPATH=${ROOT_DIR}/boot2docker-cli/
 
-if hash go 2> /dev/null; then
+if hash go 2>/dev/null; then
   echo "Downloading/updating boot2docker-cli..."
   go get -u github.com/boot2docker/boot2docker-cli
   cd ${GOPATH}${SRC_DIR}
