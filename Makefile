@@ -15,6 +15,10 @@ ifneq ($(DOCKER_ERROR),)
 ifeq ($(OS),Darwin)
 		@echo "make boot2docker-cli"
 		@./scripts/make-boot2docker-cli.sh
+		@if [[ ! -d ~/.boot2docker ]]; \
+		then \
+			./boot2docker init; \
+		fi;
 		@./boot2docker start
 		@./scripts/fix-boot2docker-dns.sh
 		@echo "boot2docker-cli setup done"
